@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +36,11 @@ public class ShoppingListActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				productNames.add(productNameInput.getText().toString());
+				String value = productNameInput.getText().toString();
+				if (!TextUtils.isEmpty(value)) {
+					productNames.add(value);
+				}
+				productNameInput.getText().clear();
 				refreshProductNames();
 			}
 			
