@@ -1,5 +1,8 @@
 package com.example.shoppinglist;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -13,6 +16,8 @@ public class ShoppingListActivity extends Activity {
 	private Button addButton;
 	private TextView productNameView;
 	private EditText productNameInput;
+	
+	private List<String> productNames;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +28,22 @@ public class ShoppingListActivity extends Activity {
 		addButton = (Button) findViewById(R.id.add_button);
 		productNameView = (TextView) findViewById(R.id.product_name_view);
 		productNameInput = (EditText) findViewById(R.id.product_name_input);
+		productNames = new ArrayList<String>();
 		
 		addButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				productNameView.setText(productNameInput.getText());
+				productNames.add(productNameInput.getText().toString());
+				
+				StringBuilder builder = new StringBuilder();
+				
+				for (String productName : productNames) {
+					builder.append(productName);
+					builder.append("\n");
+				}
+				
+				productNameView.setText(builder.toString());
 			}
 			
 		});
