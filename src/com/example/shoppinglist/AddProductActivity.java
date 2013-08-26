@@ -28,17 +28,8 @@ public class AddProductActivity extends Activity {
 			public void onClick(View v) {
 
 				addButtonClick();
-
-				// String value = productNameInput.getText().toString();
-				// if (!TextUtils.isEmpty(value)) {
-				// productNames.add(value);
-				// }
-				// productNameInput.getText().clear();
-				// refreshProductNames();
 			}
-
 		});
-
 	}
 
 	protected void addButtonClick() {
@@ -47,6 +38,5 @@ public class AddProductActivity extends Activity {
 		intentWithData.putExtra(PRODUCT_NAME, productNameInput.getText().toString());
 		setResult(Activity.RESULT_OK, intentWithData);
 		finish();
-
 	}
 }
