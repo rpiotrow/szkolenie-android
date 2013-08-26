@@ -25,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:layout_weight="1" 
-                android:hint="@string/product_name">
+                android:hint="@string/product_name"
+                android:inputType="text">
 
                 <requestFocus />
             </EditText>
