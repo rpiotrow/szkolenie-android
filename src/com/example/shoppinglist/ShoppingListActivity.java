@@ -13,11 +13,12 @@ import android.widget.TextView;
 
 public class ShoppingListActivity extends Activity {
 	
+	private static final String BUNDLE_PRODUCT_NAMES = "productNames";
 	private Button addButton;
 	private TextView productNameView;
 	private EditText productNameInput;
 	
-	private List<String> productNames;
+	private ArrayList<String> productNames;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +36,34 @@ public class ShoppingListActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				productNames.add(productNameInput.getText().toString());
-				
-				StringBuilder builder = new StringBuilder();
-				
-				for (String productName : productNames) {
-					builder.append(productName);
-					builder.append("\n");
-				}
-				
-				productNameView.setText(builder.toString());
+				refreshProductNames();
 			}
 			
 		});
 	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putStringArrayList(BUNDLE_PRODUCT_NAMES, productNames);
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		productNames = savedInstanceState.getStringArrayList(BUNDLE_PRODUCT_NAMES);
+		refreshProductNames();
+	}
 
+	private void refreshProductNames() {
+		StringBuilder builder = new StringBuilder();
+		
+		for (String productName : productNames) {
+			builder.append(productName);
+			builder.append("\n");
+		}
+		
+		productNameView.setText(builder.toString());
+	}
+	
 }
