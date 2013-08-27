@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class MyArrayAdapter extends ArrayAdapter<String> {
@@ -24,13 +25,27 @@ public class MyArrayAdapter extends ArrayAdapter<String> {
 		View rowView = convertView;
 		if (rowView == null) {
 			rowView = inflater.inflate(R.layout.row_layout, parent, false);
+			
+			ViewHolder viewHolder = new ViewHolder();
+			
+			viewHolder.checkBox = (CheckBox) rowView.findViewById(R.id.checkBox1);
+			viewHolder.textView = (TextView) rowView.findViewById(R.id.textView1);
+			
+			rowView.setTag(viewHolder);
 		}
 		
+		ViewHolder viewHolder = (ViewHolder) rowView.getTag();
+		
 		//CheckBox checkbox = (CheckBox) rowView.findViewById(R.id.checkBox1);
-		TextView textView = (TextView) rowView.findViewById(R.id.textView1);
-		textView.setText(getItem(position));
+		//TextView textView = (TextView) rowView.findViewById(R.id.textView1);
+		viewHolder.textView.setText(getItem(position));
 		
 		return rowView;
+	}
+	
+	private static class ViewHolder {
+		private CheckBox checkBox;
+		private TextView textView;
 	}
 	
 }
