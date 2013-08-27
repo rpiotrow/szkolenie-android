@@ -21,7 +21,11 @@ public class MyArrayAdapter extends ArrayAdapter<String> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		View rowView = inflater.inflate(R.layout.row_layout, parent, false);
+		View rowView = convertView;
+		if (rowView == null) {
+			rowView = inflater.inflate(R.layout.row_layout, parent, false);
+		}
+		
 		//CheckBox checkbox = (CheckBox) rowView.findViewById(R.id.checkBox1);
 		TextView textView = (TextView) rowView.findViewById(R.id.textView1);
 		textView.setText(getItem(position));
