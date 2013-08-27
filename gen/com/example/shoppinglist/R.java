@@ -26,8 +26,8 @@ public final class R {
     public static final class id {
         public static final int action_settings=0x7f080003;
         public static final int add_button=0x7f080001;
+        public static final int myList=0x7f080002;
         public static final int product_name_input=0x7f080000;
-        public static final int product_name_view=0x7f080002;
     }
     public static final class layout {
         public static final int activity_add_product=0x7f030000;

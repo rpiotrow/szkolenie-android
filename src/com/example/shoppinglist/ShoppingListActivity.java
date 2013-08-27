@@ -2,19 +2,21 @@ package com.example.shoppinglist;
 
 import java.util.ArrayList;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListView;
 
 public class ShoppingListActivity extends Activity {
 
 	public static final int ADD_PRODUCT_REQUEST_CODE = 1;
 	private static final String BUNDLE_PRODUCT_NAMES = "productNames";
 	private Button addButton;
-	private TextView productNameView;
+	private ListView productNameslistView;
+	private ArrayAdapter<String> adapter;
 
 	private ArrayList<String> productNames;
 
@@ -25,8 +27,21 @@ public class ShoppingListActivity extends Activity {
 		setContentView(R.layout.activity_shopping_list);
 
 		addButton = (Button) findViewById(R.id.add_button);
-		productNameView = (TextView) findViewById(R.id.product_name_view);
-		productNames = new ArrayList<String>();
+		productNameslistView = (ListView) findViewById(R.id.myList);
+
+		if (savedInstanceState != null) {
+			
+			productNames = savedInstanceState
+					.getStringArrayList(BUNDLE_PRODUCT_NAMES);
+		} else {
+			productNames = new ArrayList<String>();
+		}
+
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1,
+				productNames);
+
+		productNameslistView.setAdapter(adapter);
 
 		addButton.setOnClickListener(new View.OnClickListener() {
 
@@ -45,14 +60,6 @@ public class ShoppingListActivity extends Activity {
 	}
 
 	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		super.onRestoreInstanceState(savedInstanceState);
-		productNames = savedInstanceState
-				.getStringArrayList(BUNDLE_PRODUCT_NAMES);
-		refreshProductNames();
-	}
-
-	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		if (requestCode == ADD_PRODUCT_REQUEST_CODE) {
@@ -62,24 +69,13 @@ public class ShoppingListActivity extends Activity {
 						AddProductActivity.PRODUCT_NAME);
 
 				productNames.add(productName);
-
-				refreshProductNames();
+				adapter.notifyDataSetChanged();
 			}
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	private void refreshProductNames() {
-		StringBuilder builder = new StringBuilder();
-
-		for (String productName : productNames) {
-			builder.append(productName);
-			builder.append("\n");
-		}
-
-		productNameView.setText(builder.toString());
-	}
 
 	private void addButtonClick() {
 
