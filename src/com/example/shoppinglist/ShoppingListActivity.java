@@ -30,9 +30,8 @@ public class ShoppingListActivity extends Activity {
 		productNameslistView = (ListView) findViewById(R.id.myList);
 
 		if (savedInstanceState != null) {
-			
-//			products = savedInstanceState
-//					.getStringArrayList(BUNDLE_PRODUCT_NAMES);
+			products = savedInstanceState
+					.getParcelableArrayList(BUNDLE_PRODUCT_NAMES);
 		} else {
 			products = new ArrayList<Product>();
 			for (int i = 0; i < 100; ++i) {
@@ -57,7 +56,7 @@ public class ShoppingListActivity extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		//outState.putStringArrayList(BUNDLE_PRODUCT_NAMES, products);
+		outState.putParcelableArrayList(BUNDLE_PRODUCT_NAMES, products);
 	}
 
 	@Override
