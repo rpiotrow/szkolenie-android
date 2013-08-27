@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class MyArrayAdapter extends ArrayAdapter<String> {
+public class MyArrayAdapter extends ArrayAdapter<Product> {
 
 	private LayoutInflater inflater;
 
-	public MyArrayAdapter(Context context, ArrayList<String> values) {
+	public MyArrayAdapter(Context context, ArrayList<Product> values) {
 		super(context, R.layout.row_layout, values);
 		inflater = LayoutInflater.from(context);
 	}
@@ -34,11 +36,20 @@ public class MyArrayAdapter extends ArrayAdapter<String> {
 			rowView.setTag(viewHolder);
 		}
 		
-		ViewHolder viewHolder = (ViewHolder) rowView.getTag();
+		ViewHolder viewHolder = (ViewHolder) rowView.getTag();	
 		
-		//CheckBox checkbox = (CheckBox) rowView.findViewById(R.id.checkBox1);
-		//TextView textView = (TextView) rowView.findViewById(R.id.textView1);
-		viewHolder.textView.setText(getItem(position));
+		final Product item = getItem(position);
+		viewHolder.textView.setText(item.getName());
+		
+		viewHolder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean value) {
+				item.setBought(value);
+				
+			}
+		});
+		viewHolder.checkBox.setChecked(item.isBought());
 		
 		return rowView;
 	}

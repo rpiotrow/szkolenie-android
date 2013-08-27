@@ -16,9 +16,9 @@ public class ShoppingListActivity extends Activity {
 	private static final String BUNDLE_PRODUCT_NAMES = "productNames";
 	private Button addButton;
 	private ListView productNameslistView;
-	private ArrayAdapter<String> adapter;
+	private ArrayAdapter<Product> adapter;
 
-	private ArrayList<String> productNames;
+	private ArrayList<Product> products;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +31,16 @@ public class ShoppingListActivity extends Activity {
 
 		if (savedInstanceState != null) {
 			
-			productNames = savedInstanceState
-					.getStringArrayList(BUNDLE_PRODUCT_NAMES);
+//			products = savedInstanceState
+//					.getStringArrayList(BUNDLE_PRODUCT_NAMES);
 		} else {
-			productNames = new ArrayList<String>();
+			products = new ArrayList<Product>();
 			for (int i = 0; i < 100; ++i) {
-				productNames.add("Product " + i);
+				products.add(new Product("Product " + i));
 			}
 		}
 
-		adapter = new MyArrayAdapter(this, productNames);
+		adapter = new MyArrayAdapter(this, products);
 
 		productNameslistView.setAdapter(adapter);
 
@@ -57,7 +57,7 @@ public class ShoppingListActivity extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putStringArrayList(BUNDLE_PRODUCT_NAMES, productNames);
+		//outState.putStringArrayList(BUNDLE_PRODUCT_NAMES, products);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class ShoppingListActivity extends Activity {
 				String productName = data.getExtras().getString(
 						AddProductActivity.PRODUCT_NAME);
 
-				productNames.add(productName);
+				products.add(new Product(productName));
 				adapter.notifyDataSetChanged();
 			}
 		}
