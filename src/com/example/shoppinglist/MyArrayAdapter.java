@@ -31,6 +31,14 @@ public class MyArrayAdapter extends ArrayAdapter<Product> {
 			ViewHolder viewHolder = new ViewHolder();
 			
 			viewHolder.checkBox = (CheckBox) rowView.findViewById(R.id.checkBox1);
+			viewHolder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton compoundButton, boolean value) {
+					Product item = (Product) compoundButton.getTag();
+					item.setBought(value);
+					
+				}
+			});
 			viewHolder.textView = (TextView) rowView.findViewById(R.id.textView1);
 			
 			rowView.setTag(viewHolder);
@@ -39,16 +47,9 @@ public class MyArrayAdapter extends ArrayAdapter<Product> {
 		ViewHolder viewHolder = (ViewHolder) rowView.getTag();	
 		
 		final Product item = getItem(position);
-		viewHolder.textView.setText(item.getName());
+		viewHolder.checkBox.setTag(item);
 		
-		viewHolder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton compoundButton, boolean value) {
-				item.setBought(value);
-				
-			}
-		});
+		viewHolder.textView.setText(item.getName());
 		viewHolder.checkBox.setChecked(item.isBought());
 		
 		return rowView;

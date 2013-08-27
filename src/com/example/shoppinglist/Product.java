@@ -55,7 +55,7 @@ public class Product implements Parcelable {
 	
 	private Product(Parcel parcel) {
 		setName(parcel.readString());
-		setBought(parcel.readByte() == 1 ? true : false);
+		setBought(parcel.readByte() == 1);
 	}
 	
 }
