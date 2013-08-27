@@ -35,6 +35,9 @@ public class ShoppingListActivity extends Activity {
 					.getStringArrayList(BUNDLE_PRODUCT_NAMES);
 		} else {
 			productNames = new ArrayList<String>();
+			for (int i = 0; i < 100; ++i) {
+				productNames.add("Product " + i);
+			}
 		}
 
 		adapter = new MyArrayAdapter(this, productNames);
