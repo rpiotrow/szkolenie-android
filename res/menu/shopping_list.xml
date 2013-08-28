@@ -2,6 +2,7 @@
 
     <item
         android:id="@+id/add_product_menu"
-        android:title="@string/add"/>
+        android:title="@string/add"
+        android:showAsAction="always|withText"/>
 
 </menu>
