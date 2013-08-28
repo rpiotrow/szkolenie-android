@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 public class ShoppingListActivity extends Activity {
 
 	public static final int ADD_PRODUCT_REQUEST_CODE = 1;
 	private static final String BUNDLE_PRODUCT_NAMES = "productNames";
-	private Button addButton;
 	private ListView productNameslistView;
 	private ArrayAdapter<Product> adapter;
 
@@ -26,7 +26,6 @@ public class ShoppingListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shopping_list);
 
-		addButton = (Button) findViewById(R.id.add_button);
 		productNameslistView = (ListView) findViewById(R.id.myList);
 
 		if (savedInstanceState != null) {
@@ -42,15 +41,6 @@ public class ShoppingListActivity extends Activity {
 		adapter = new MyArrayAdapter(this, products);
 
 		productNameslistView.setAdapter(adapter);
-
-		addButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				addButtonClick();
-			}
-		});
 	}
 
 	@Override
@@ -74,6 +64,26 @@ public class ShoppingListActivity extends Activity {
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		MenuInflater inflater = getMenuInflater();
+		
+		inflater.inflate(R.menu.shopping_list, menu);
+		
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		if(item.getItemId() == R.id.add_product_menu) {
+			addButtonClick();
+		}
+		
+		return true;
 	}
 
 
